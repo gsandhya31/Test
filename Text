@@ -1,7 +1,4 @@
-"Of all surveyed business units, 4 account for 81% of FTE — with 61% of that effort in processing activity that is systematically addressable."
-Option B (shorter):
-"Scope focuses where the effort sits: 4 business units, 81% of FTE, majority in processing work."
-Above the flow (right side, under "Solution Approach"):
-"677 unique L4 activities distil into 13 recurring work themes, served by just 9 cross-cutting utilities — 3 of which are being proven first on ServiceNow."
-Takeaway strip (bottom of slide — this is the sentence management remembers):
-"Build 9 utilities once, reuse them across 13 themes and 677 activities — starting with 3 pilots on our existing ServiceNow platform."
+Scope table caption:
+"The ABC survey spans all business units; 4 of them account for 81% of total FTE — these define the scope of the Name & Forms initiative. Separately, 61% of all surveyed FTE sits in processing activity — the kind of work utilities can systematically address."
+Shorter version:
+"4 business units hold 81% of total FTE and form the initiative's scope; across the full survey, 61% of FTE is processing work — prime ground for utilities."
