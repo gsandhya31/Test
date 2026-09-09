@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ServiceNow Track: Solution Architecture</title>
+<style>
+  :root{
+    --ink:#212121; --slate:#36454F; --red:#990011; --red-tint:#F4E6E8;
+    --slate-tint:#E9EDEF; --gray-tint:#F2F2F2; --mid:#6B7278; --line:#D9D9D9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:Calibri,'Segoe UI',Arial,sans-serif; background:#e8e8e8; display:flex; justify-content:center; padding:24px;}
+  .stage{width:1400px; background:#fff; padding:34px 44px 30px; box-shadow:0 2px 14px rgba(0,0,0,.18);}
+  h1{font-family:Cambria,Georgia,serif; font-size:30px; color:var(--ink);}
+  .subtitle{font-size:13.5px; color:var(--mid); margin-top:4px;}
+  .legend{display:flex; gap:22px; margin-top:10px; font-size:11.5px; color:var(--mid); align-items:center;}
+  .sw{display:inline-block; width:22px; height:13px; margin-right:6px; vertical-align:-2px; border:1px solid var(--line);}
+  .sw.custom{background:#fff; border:1.5px solid var(--red);}
+  .sw.native{background:var(--red-tint);}
+  .sw.ext{background:var(--slate-tint); border:1px solid var(--slate);}
+
+  .canvas{display:grid; grid-template-columns:170px 1fr 185px; gap:16px; margin-top:16px; align-items:stretch;}
+  .sidecol{display:flex; flex-direction:column; justify-content:space-around; gap:14px; padding:30px 0;}
+  .extbox{background:var(--slate-tint); border:1px solid var(--slate); border-radius:8px; padding:10px 9px;
+          font-size:11.5px; font-weight:bold; color:var(--slate); text-align:center;}
+  .extbox small{display:block; font-weight:normal; color:var(--mid); font-size:10px; margin-top:3px;}
+  .db{border-radius:14px/26px; border-top-width:4px;}
+
+  .platform{border:2.5px solid var(--red); border-radius:12px; background:#FDFBFB; padding:14px 18px 16px;}
+  .platform>.ptitle{font-family:Cambria,Georgia,serif; font-size:16.5px; font-weight:bold; color:var(--red);}
+  .band{border:1px dashed var(--line); border-radius:9px; padding:10px 12px 12px; margin-top:10px; background:#fff;}
+  .band-label{font-size:10px; font-weight:bold; letter-spacing:.16em; color:var(--mid); text-transform:uppercase;}
+  .band-note{font-size:11px; color:var(--mid); float:right; font-style:italic;}
+
+  .cards{display:flex; gap:10px; margin-top:8px;}
+  .skill{flex:1; border:1.5px solid var(--red); border-radius:8px; background:#fff; padding:8px 9px; text-align:center;}
+  .skill .tag{display:inline-block; font-size:9px; font-weight:bold; color:#fff; background:var(--red);
+              border-radius:8px; padding:1px 8px; letter-spacing:.06em;}
+  .skill .nm{font-size:12px; font-weight:bold; color:var(--ink); margin-top:5px;}
+  .skill .ds{font-size:10.5px; color:var(--mid); margin-top:2px;}
+  .skill.future{border-style:dashed; opacity:.75;}
+
+  .flowrow{display:flex; align-items:center; gap:6px; margin-top:8px;}
+  .step{flex:1; border:1.5px solid var(--red); border-radius:8px; background:#fff; padding:8px 6px;
+        font-size:11px; font-weight:bold; color:var(--ink); text-align:center;}
+  .step .uses{display:block; font-size:9.5px; font-weight:normal; color:var(--red); margin-top:3px;}
+  .arrow{color:var(--mid); font-size:15px;}
+
+  .svcrow{display:flex; gap:10px; margin-top:8px;}
+  .svc{flex:1; border:1.5px solid var(--red); border-radius:8px; background:#fff; padding:8px 9px; text-align:center;}
+  .svc .nm{font-size:12px; font-weight:bold; color:var(--ink);}
+  .svc .ds{font-size:10.5px; color:var(--mid); margin-top:2px;}
+
+  .chips{display:flex; gap:10px; margin-top:8px;}
+  .chip{flex:1; background:var(--red-tint); border:1px solid var(--line); border-radius:8px;
+        padding:9px 6px; font-size:11px; font-weight:bold; color:var(--red); text-align:center;}
+
+  .link{ text-align:center; color:var(--mid); font-size:12px; margin-top:8px;}
+  .link b{color:var(--ink);}
+
+  .keymsg{margin-top:16px; background:var(--ink); color:#fff; border-radius:9px; padding:13px 20px; font-size:13.5px;}
+  .keymsg b{color:#E06070;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <h1>ServiceNow Track: Solution Architecture</h1>
+  <div class="subtitle">Reusable AI skills on a marketplace, orchestrated per use case via the wizard, interlinked on one platform</div>
+  <div class="legend">
+    <span><span class="sw custom"></span>Custom-built on platform</span>
+    <span><span class="sw native"></span>Platform-native (inherited)</span>
+    <span><span class="sw ext"></span>External systems &amp; stores</span>
+  </div>
+
+  <div class="canvas">
+    <!-- LEFT: business systems -->
+    <div class="sidecol">
+      <div class="extbox">Outlook mailbox (Exchange)<small>counterparty email, two-way</small></div>
+      <div class="extbox">Cashflow system / PCM<small>read + write-back</small></div>
+    </div>
+
+    <!-- CENTER: platform -->
+    <div class="platform">
+      <div class="ptitle">ServiceNow Platform&ensp;<span style="font-size:12px; color:var(--mid); font-weight:normal;">(prod-proven in the firm)</span></div>
+
+      <!-- Band 1: skills marketplace -->
+      <div class="band">
+        <span class="band-label">AI Skills Marketplace</span>
+        <span class="band-note">build a skill once, publish, reuse across use cases</span>
+        <div class="cards">
+          <div class="skill"><span class="tag">SKILL</span><div class="nm">Unstructured &#8594; Structured</div><div class="ds">extract fields from emails, PDF, Excel, images</div></div>
+          <div class="skill"><span class="tag">SKILL</span><div class="nm">Compare &amp; Match</div><div class="ds">validate extracted data vs system records</div></div>
+          <div class="skill"><span class="tag">SKILL</span><div class="nm">Classify &amp; Route</div><div class="ds">intent detection, queue assignment</div></div>
+          <div class="skill"><span class="tag">SKILL</span><div class="nm">Summarise &amp; Draft</div><div class="ds">outcome-based email drafting</div></div>
+          <div class="skill future"><span class="tag">FUTURE</span><div class="nm">New skills</div><div class="ds">added to marketplace as needs emerge</div></div>
+        </div>
+      </div>
+
+      <div class="link">&#9660;&ensp;<b>Wizard pulls skills from the marketplace</b> and sequences them per use case&ensp;&#9660;</div>
+
+      <!-- Band 2: wizard orchestration -->
+      <div class="band">
+        <span class="band-label">Wizard &mdash; Orchestration Layer</span>
+        <span class="band-note">use case shown: non-STP cashflow emails</span>
+        <div class="flowrow">
+          <div class="step">Email intake</div><span class="arrow">&#9656;</span>
+          <div class="step">Extraction<span class="uses">uses: Unstructured &#8594; Structured</span></div><span class="arrow">&#9656;</span>
+          <div class="step">Validation<span class="uses">uses: Compare &amp; Match</span></div><span class="arrow">&#9656;</span>
+          <div class="step">HITL review queues<span class="uses">wizard UI, case mgmt</span></div><span class="arrow">&#9656;</span>
+          <div class="step">PCM write-back + email drafts<span class="uses">uses: Summarise &amp; Draft</span></div>
+        </div>
+      </div>
+
+      <div class="link">&#9660;&ensp;skills and wizard run on <b>shared platform connectivity</b>&ensp;&#9660;</div>
+
+      <!-- Band 3: connectivity services -->
+      <div class="band">
+        <span class="band-label">Platform Connectivity Services</span>
+        <div class="svcrow">
+          <div class="svc"><div class="nm">LLM gateway (Now Assist)</div><div class="ds">routes all skill LLM calls to the in-house Chinou API</div></div>
+          <div class="svc"><div class="nm">RAG / Vector DB connector</div><div class="ds">grounding on SOPs, precedents, reference data</div></div>
+          <div class="svc"><div class="nm">System integrations</div><div class="ds">mailbox, cashflow/PCM read and write-back</div></div>
+        </div>
+      </div>
+
+      <!-- Band 4: native capabilities -->
+      <div class="band" style="background:#FBF5F6;">
+        <span class="band-label">Platform-Native Capabilities</span>
+        <span class="band-note">inherited on day one, not built</span>
+        <div class="chips">
+          <div class="chip">Audit trail (OOB)</div>
+          <div class="chip">RBAC &amp; ACLs</div>
+          <div class="chip">Change mgmt</div>
+          <div class="chip">Workflow &amp; SLAs</div>
+          <div class="chip">Dashboards</div>
+          <div class="chip">HA &amp; upgrades</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: AI/data externals -->
+    <div class="sidecol">
+      <div class="extbox">Chinou LLM API<small>in-house, firm-approved</small></div>
+      <div class="extbox db">RAG / Vector store<small>knowledge &amp; reference embeddings</small></div>
+      <div class="extbox">LangSmith observability<small>integration in progress</small></div>
+    </div>
+  </div>
+
+  <div class="keymsg"><b>The platform edge:</b> skills, orchestration, data connectivity (RAG / vector) and governance are interlinked on one platform. A new use case is a new wizard orchestration of existing marketplace skills, not a new build &mdash; and audit, RBAC, change management and dashboards apply to it automatically.</div>
+</div>
+</body>
+</html>
