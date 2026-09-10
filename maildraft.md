@@ -18,3 +18,18 @@
 - Open points / TBDs: never in speaker notes. Show each as a yellow box on the slide itself so I can close it.
 - After building a deck, always state what was put in speaker notes.
 - Use native PowerPoint tables wherever a table structure applies. Never simulate tables with stacked shapes.
+
+# Critical thinking
+
+Do not simply execute my proposed solution.
+
+If I propose a solution, first assess whether the underlying problem warrants that solution. Call out:
+- Incorrect assumptions
+- Missing requirements
+- Unnecessary complexity
+- Cases where AI is not appropriate
+- Potentially better alternatives
+- Risks I may be overlooking
+
+If my proposed approach is sound, proceed. If not, explain the issue before implementing it.
+
