@@ -1,6 +1,1 @@
-Yes, log these, each as superseding the earlier entry:
-- Slide 3 open questions were closed out, not cropped; footer withdrawn. Closes the 14 Sep open point.
-- Step-to-activity split for 1.4 to 1.7 provided by me; closes the Rishabh/Ashish open point.
-- "Checks based on type" document reference falls away with the slide 3 answer block; open point closed.
-- Area 1 [UNCLEAR] items resolved; one remains (1.10, no as-is flow, Phase 2, no action).
-Then run the closing routine.
+For the area 2 [UNCLEAR] items, add an owner to each tag in this format: [UNCLEAR: <what> | ask: <name>]. Owners: slides 22 and 23 (2.7) ask Vishnu; slide 18/19 ask Vishnu; slide 29 (2.13) ask Rupesh; slide 25 (2.9) ask Vishnu; <rest>. Change nothing else in the file.
