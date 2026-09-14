@@ -1,1 +1,1 @@
-After writing or editing a file, do not print its content in chat. Tell me the file path and which sections changed, in five lines or fewer. I review in the editor.
+7. Whenever I approve a step (ok, approved, go ahead, next), ask in one line before proceeding: 'Anything from this step to log in decisions/brd-decisions.md?' If I answer no or move on without answering, continue."
