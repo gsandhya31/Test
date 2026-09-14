@@ -1,1 +1,1 @@
-Check area 1 against the slides yourself (the attached 1.1/1.2 slide is a good test: two checkers, a mandatory-list footnote, a TACE footnote, and a note in the margin about email mapping; all five should appear).
+After writing or editing a file, do not print its content in chat. Tell me the file path and which sections changed, in five lines or fewer. I review in the editor.
