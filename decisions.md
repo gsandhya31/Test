@@ -1,1 +1,1 @@
-After Session 1, brd/annex-scope-register.md supersedes edm-activities-status.xlsx for scope and status; the Excel is the 14 Sep snapshot."
+Status change: <activity number> is now <new status> because <reason>, confirmed by <who> on <date>. Append this to decisions/brd-decisions.md as a new dated entry. Update the matching row in brd/annex-scope-register.md. Then tell me which chapter sections, if any, already reference this activity and would need to change; do not edit them until I confirm.
