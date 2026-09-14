@@ -1,1 +1,1 @@
-7. Whenever I approve a step (ok, approved, go ahead, next), ask in one line before proceeding: 'Anything from this step to log in decisions/brd-decisions.md?' If I answer no or move on without answering, continue."
+Slide 3 in reference/flows-jpg/ has been updated. Re-read only that slide, update the corresponding part of flows-area-1.md, and tell me which [UNCLEAR] item it clears. Do not re-read any other slide.
