@@ -1,1 +1,1 @@
-List every [UNCLEAR] tag in reference/flows-area-*.md grouped by owner, with file, slide number and the question, as a plain list I can paste into an email.
+Log, superseding the area 4 entry: slides 63 to 73 are reference material, not additional as-is flows; not transcribed and ignored for draft v0.1. flows-area-1.md (slides 1 to 13) is the complete area 1 source.
