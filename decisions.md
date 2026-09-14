@@ -1,1 +1,1 @@
-For the area 2 [UNCLEAR] items, add an owner to each tag in this format: [UNCLEAR: <what> | ask: <name>]. Owners: slides 22 and 23 (2.7) ask Vishnu; slide 18/19 ask Vishnu; slide 29 (2.13) ask Rupesh; slide 25 (2.9) ask Vishnu; <rest>. Change nothing else in the file.
+List every [UNCLEAR] tag in reference/flows-area-*.md grouped by owner, with file, slide number and the question, as a plain list I can paste into an email.
