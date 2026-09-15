@@ -1,129 +1,126 @@
-# Claude Code prompts for the CSG / EDM BRD (revised 15 Sep, after Session 0 and most of Session 1)
+# CSG / EDM Automation BRD
 
-State: Session 0 done (flows-area-1 to 4 written). Session 1: Part A done, Parts B to E corrected. Remaining: Message A, skeleton, closing.
-reference/ now also holds: platform-skills.md, the AI Governance Standard, the NTI process document, the ORMF document, the governance v8 deck.
+## What this folder is
+Business Requirements Document for automation opportunities in the Client Service Group (CSG), Entity Data Management (EDM) team, Nomura Wholesale Operations.
+Precedent: the SSG BRD (OTC Allege Pilot) in reference/. Reuse its process-agnostic sections and its two utilities (Unstructured to Structured, Compare and Match).
+Markdown is the source of truth; .docx is generated from it, never hand-edited.
 
-Day plan (Opus for all content steps; check /cost at every boundary, stop near 40 USD):
-- Today: finish Session 1; chapter 1; front section.
-- 16 Sep: chapters 2 and 3 in two parallel windows (only the closing routines must not overlap); chapter 4.
-- 17 to 18 Sep: Phase 3, draft v0.1 out on 18 Sep.
+## Folder layout
+- reference/   Read-only inputs:
+  - SSG BRD (md)
+  - edm-activities-status.xlsx: activity list with SABRE SPOC, business SPOC, and business review status on as-is flows. Authoritative for scope and status.
+  - edm-activity-flows.pptx (single deck, all activities) exported as one JPG per slide in reference/flows-jpg/. Session 0 converts these to flows-area-1.md to flows-area-4.md (one file per Level 2 area). The area files are authoritative for as-is steps, input format, HITL and volumes where stated.
+- brd/         The document, one file per part (see Document structure).
+- decisions/   brd-decisions.md = append-only journal of decisions. Read at the start of every session. Append at the end of every session.
+- log/         One dated entry per session.
 
-=====================================================================
-## Every session
-=====================================================================
+## Document structure (agreed)
+- brd/00-front-section.md          Background, objectives, scope summary, stakeholders, governance and NTI, AI principles, prerequisites, Phase 2 candidates summary. Written AFTER chapters 1 and 2.
+- brd/01-capability-catalogue.md   Reusable utilities, each defined once. Hypothesis in Session 1, corrected by every chapter, rewritten clean in Phase 3.
+- brd/ch-01-confirmation-contacts-gtype.md      Level 2 area 1 (activities 1.1 to 1.10)
+- brd/ch-02-org-creation-maintenance.md         Level 2 area 2 (activities 2.1 to 2.15)
+- brd/ch-03-account-creation-maintenance.md     Level 2 area 3 (activities 3.1 to 3.17)
+- brd/ch-04-commission-fees.md                  Level 2 area 4 (activities 4.1 to 4.9): no template sections; one note that all nine are Phase 2 (third-party integration) plus the activity list
+- brd/annex-scope-register.md      Every underlying activity as one row (one row per region where flows differ; 3.4 as two rows: Totoro and other FO systems): status, scope decision, reason code, input pattern(s), as-is checker drawn, frequency, unblocking question. Rows ordered area 1, 2, 3, 4. Activity names are the status-sheet names verbatim; slide title as an alias column where it differs.
+- brd/CSG_EDM_BRD.md               Assembled document (generated in Phase 3, never edited directly)
 
-Opening line (first message of every session):
-```
-Read CLAUDE.md, decisions/brd-decisions.md and the latest file in log/. Give me a 5-line summary of where we are and what is open. Do not create or edit anything yet.
-```
+One chapter per Level 2 area, NOT per underlying activity. Activities are sections inside a chapter.
 
-Closing line (last message of every session):
-```
-Append today's decisions to decisions/brd-decisions.md (new dated entry, do not touch earlier entries) and write a dated entry in log/ covering what was done, what changed, open points, session name and /cost. Show me both additions.
-```
+## Chapter template (per Level 2 area)
+1. Area overview: activities, volumes, input patterns, status table. Where frequency or volume is not stated in the flow material, include a "Business to populate" table (activity, frequency, volume, comment) with blank cells, tagged [BUSINESS INPUT]. Never fill it from guesswork. Input format and HITL are not asked of business: input pattern is read from the flows, HITL points are designed in the to-be.
+2. As-is process, one sub-section per FLOW GROUP (activities that share one drawn flow are one sub-section, e.g. {1.1, 1.2}, {1.4 to 1.7}), with a mapping table at the head of the section: activity number to flow group to slide numbers. Regional variants (2.7, 3.8) are sub-sub-sections. Where a later activity duplicates an earlier chapter's flow (3.2 = 2.2, 3.16 = 2.15, 3.6 reuses 2.4, 3.11 twin of 2.12, 3.7 = 2.6), write it once in the earlier chapter and cross-reference from the later one.
+3. Pain points and root causes
+4. Scope decision per activity: Phase 1 / Phase 2 / out of scope / pending / covered elsewhere, with reason
+5. To-be process, one sub-section per flow group that has an as-is (same grouping, regions and cross-references as section 2). Each step tagged with the platform skill it uses (one of the nine) and where the human decides. Every to-be is written in the same configuration shape (see Wizard-readiness). Where the as-is is pending business sign-off, the sub-section opens with "To-be drafted on an as-is pending business sign-off".
+6. Functional requirements, numbered FR-<chapter>-<nn>, testable
+7. Controls and governance: maker-checker, logging, mapping to NTI, ORMF and AI Governance Standard articles
+8. Data and system touchpoints (EVE, ServiceNow, webform, mailbox, others named in reference/)
+9. Risks, assumptions, dependencies, prerequisites
+10. Open points, kept visible
 
-Change intake (any correction: a flow fix, rule content arriving, a status change, a scope call, a governance requirement). Send after the opening line, before the session's own work:
-```
-Change intake. <what changed>, from <who> on <date>.
-1. Append it to decisions/brd-decisions.md as a new dated entry, superseding any earlier entry it contradicts.
-2. List every place it lands: rows in brd/annex-scope-register.md, entries in brd/01-capability-catalogue.md, sections in any chapter, the front section, and any [UNCLEAR] or [OPEN] tag it closes. For each, say what would change in one line.
-3. Do not edit anything yet; wait for my confirmation of the list.
-```
+## Wizard-readiness (drafting lens, not a chapter)
+The target platform lets business users configure their own process through a no-code wizard, one configuration per activity. So every to-be must be expressible as a configuration record with the same fields for every activity:
+- input: pattern (IP1/IP2/IP3), mailbox or source, routing signal
+- extraction: fields to capture, from where (form, attachment, body)
+- checks: validation rules, compare-and-match pairs, duplicate targets
+- decision points: where the maker confirms, where the checker confirms
+- outputs: system write, query to requestor, closure, log entry
+Write section 5 for each activity in this shape. If an activity cannot be expressed this way, say why in section 10; that is a finding, not a failure.
 
-Open points per owner (any session, Sonnet is fine):
-```
-List every [UNCLEAR], [OPEN], [CONFLICT] and [BUSINESS INPUT] tag across reference/flows-area-*.md and brd/*.md, grouped by owner, with file, section or slide, and the question, as a plain list I can paste into an email.
-```
+## Scope rules (locked)
+- A to-be is written wherever a documented as-is flow exists and the activity is not Phase 2 or out of scope. Pending business sign-off does not block the to-be; it is marked as drafted on a pending as-is (applies to 2.7 both regions, 2.10, 2.13, 3.2, 3.6, 3.8 all regions, 3.15, 3.17). Never invent a to-be where no as-is is drawn.
+- Third-party system activities (GMI/Consensys, FIA Tech, LIMA, Nomura Now, Postedge, FO systems except Totoro) are out of scope for Phase 1 and listed as Phase 2 candidates. Do not design for them. Record the business reason: API access not beneficial from an ROI perspective.
+- Activities covered by other activities get no separate to-be: 1.9 (by 1.1 to 1.7), 2.3 and 2.14 (by the other 2.x activities), 3.7 (by 2.6). Note them in the scope register as folded into the activities that cover them. Slide 17 (EVE RDM Bulk Loader) is recorded as an as-is note in chapter 2 section 2, owner Rupesh, not as a 2.3 flow.
+- 3.4 is two register rows: Totoro (Phase 1) and other FO systems as named on the status sheet (Phase 2). Where flows differ by region (2.7, 3.8), one register row per region.
+- Override / exception activities (2.11, 3.9) are out of scope: performed only when there are exceptions, business confirmed.
+- Activities whose volume already flows through EVE workflow (2.5, 2.8) are out of scope, business confirmed.
+- "Sign off pending", "SOP pending", "awaiting clarifications", "steps unclear": one row in the scope register saying what would unblock it. No to-be until unblocked.
+- Environment or IT actions (1.8, pre-refresh backup) are out of scope for automation; register and recommend to the owning tech team.
+- Source precedence: edm-activities-status.xlsx for scope and status until Session 1; after Session 1, brd/annex-scope-register.md supersedes it and the Excel is the 14 Sep snapshot. Flow material for as-is steps, input format, HITL, volumes. Flag every conflict as [CONFLICT] rather than picking one silently.
+- Any status change is logged in decisions/brd-decisions.md first, then applied to the scope register, then to chapters, in that order.
 
-=====================================================================
-## Session 1, remainder (current session, Opus)
-=====================================================================
+## Input reality (locked)
+- Requesters cannot be asked to change behaviour. Input stays as it is today. "Re-engineer into a request workflow" is retired; never propose it.
+- Three input patterns exist and every activity is tagged with one or more (an activity can have several channels, e.g. 1.1 and 1.2 are IP1 plus IP3):
+  - IP1: email with a link to a webform / screen. Structured fields plus an unstructured comments field. Confirmed for 1.1 and 1.2.
+  - IP2: email with an Excel attachment carrying the request data.
+  - IP3: free-text email.
+  - IP4: the request originates as an EVE workflow / EVERequest item, with no email (seen in 3.1, 3.8, 3.10, 3.15). No email identification; Ingestion reads the request data from EVE. Added 15 Sep.
+  - Unknown: tag as [OPEN] until the flow or business confirms.
+- Automation starts at request receipt, which is an email (IP1 to IP3) or an EVE work item (IP4): identify the activity, extract or fetch the request data, run checks, present to the analyst, checker.
+- Prerequisite, to be confirmed before build: whether IP1 form data is reachable via API or query (EVE / ServiceNow) or only by opening the screen. Carry this in the front section prerequisites and in every IP1 activity.
 
-Message A:
-```
-Three things before the skeleton.
+## Capability catalogue: the nine platform skills
+The catalogue uses the nine skills of the target platform, the same taxonomy as the SSG BRD and the skills-marketplace vision. Every to-be step is tagged with one of these. U-numbers from the Session 1 hypothesis are kept in brackets in the catalogue for traceability only; do not use them in chapter text.
+- Ingestion: pick up the request from its source (mailbox, EVE workflow or EVERequest queue, webform link), structural filtering, and identification of which activity the item belongs to (U1). Email identification uses subject line plus body context, never subject alone; not needed for IP4 items.
+- Unstructured to Structured: extract fields from email bodies, form comment fields, Excel, PDF and Word attachments, including password-protected files (U2c). Registered utility reused from the SSG BRD (NTI TDG1001567).
+- Transform and Enrich: derive fields the request does not carry (alt codes, sector code, LEI to name, the organisation / account parameter for paired configurations).
+- Validate and Approve: rules-based checks with no AI (U3), and the human confirmation and approval points (U6): maker confirmation, checker, Legal / FO / POC approvals. Maker-checker is a control pattern inside this skill, not a separate utility. The one stated presentation requirement (2.1 slide: the approver receives a data comparison table contrasting requested against actual) is quoted in the catalogue.
+- Calculate and Process: execute the agreed action in EVE and downstream systems on the analyst's credentials (create, update, close, delete alt code), with idempotency, rollback and audit. Always after human approval.
+- Monitor and Control: pending states, chasing, ageing, SLA, audit trail, wait states such as "Account on hold". The tracking half of "query and follow-up".
+- Compare and Match: two sub-modes. (a) Match against a reference source (GLEIF, PB sheet, F1SA, Totoro, duplicate check against EVE). (b) Cross-system position and linkage check across FO systems before a closure or deletion; requires Phase 1 read access to systems whose write automation is Phase 2. Registered utility reused from the SSG BRD (NTI TDG1001568).
+- Report and Notify: outbound query to the requestor or client, confirmation mails, Outlook tags. The sending half of "query and follow-up".
+- Route and Distribute: assignment to analyst, hand-off to checker, escalation to Legal / FO / KYC, region routing.
+- "Query and follow-up" is a composite of Report and Notify plus Monitor and Control; its naming is an open point.
+- Slide utility tags (Validation / Compare and Match / Unstructured to Structured) are as-is annotations only and inconsistent across areas; derive to-be skills from the steps drawn, not from the tags.
+- Cross-area duplicates (3.2/2.2, 3.16/2.15, 3.6/2.4, 3.11/2.12) are one parameterised configuration (organisation / account), recorded once in the catalogue.
+Excluded by decision: structured intake workflow (retired), environment backup (IT).
 
-1. Catalogue taxonomy. The capability catalogue uses the nine platform skills defined in reference/platform-skills.md, not U1 to U6. Rewrite log/session-1/partC-utility-validation.md so every finding, evidence table and candidate is regrouped under the nine skills, following the mapping table in that file, keeping the U-number in brackets for traceability only. Mark Unstructured to Structured and Compare and Match as registered utilities reused from the SSG BRD. Keep the per-activity evidence intact.
+## Model rules (quality first, USD 50 daily cap)
+- Opus for every step that produces or shapes BRD content: slide-to-text conversion (Session 0), Session 1 Parts B to E, all chapter Steps 1 to 3, catalogue updates, front section outline and writing, catalogue clean-up. Rework costs more than tokens; do not downgrade these to save spend.
+- Sonnet only for steps whose errors are cheap to catch by eye: Excel-to-markdown conversion (Session 1 Part A), the consistency check (report only), assembly and .docx export, decisions/log appends.
+- Haiku: not used.
+- Switch with /model inside a session. Check /cost at every session boundary. The cap is managed by spreading work over more days, not by using a weaker model: if /cost is near 40 USD, finish the current step, run the closing line, and resume tomorrow.
+- Read only what the step needs: a chapter session reads CLAUDE.md, decisions, latest log, the catalogue, the scope register and its own flows-area-N.md. Never re-read all of reference/ after Session 1.
+- New session per chapter. Context re-sent every turn is the main cost; a long session costs more per turn than a fresh one.
 
-2. Part E reclassification. Under the to-be rule, an activity with a drawn as-is gets a to-be; missing rule content becomes a named configurable check in the chapter with "content: to be supplied by <owner>" plus a section 10 open point. Re-tag every [BLOCKER] in partE-missing-facts.md as [SECTION 10], except where no to-be can exist at all: 3.15 (account selection rule) and 3.12 (no flow). Items 56, 60 and 61: the AI Governance Standard, NTI process, ORMF and the governance deck are now in reference/; mark them "source in reference/, to be read in the front section and chapter sessions".
+## Session protocol
+1. Start: read this file, decisions/brd-decisions.md, and the latest entry in log/. Give a 5-line state summary before doing anything.
+2. Agree logic and structure BEFORE creating or editing any file. If asked to discuss, discuss only.
+3. One change at a time. Do not combine unrelated edits.
+4. Work on one file per session unless told otherwise. Do not touch other chapters.
+5. End: append decisions to decisions/brd-decisions.md and a dated entry to log/, with open points listed.
+6. After roughly every 10 sections drafted, produce a consolidated list of all edits made so far.
+7. Whenever I approve a step (ok, approved, go ahead, next), ask in one line before proceeding: "Anything from this step to log in decisions/brd-decisions.md?" If I answer no or move on without answering, continue.
 
-3. Two design decisions, log them:
-- Webform (IP1): as-is is a manual click-through from the email link; the to-be reads the form via API under Ingestion. Prerequisite: API availability confirmed by the EVE / webform owners. Chapter 1 writes the to-be this way with the prerequisite in section 9.
-- Duplicate check (1.3, 2.1, 3.1, 2.9): designed as tiered, exact rules first then a fuzzy tier, same shape as the SSG matcher, so AI is in the path with human confirmation. The fuzzy tier is removed if the business rule proves deterministic.
+## Locked wording rules (every file in brd/)
+- No em-dashes anywhere. Use commas, semicolons, colons, parentheses, or "i.e." / "e.g.".
+- Do not name external vendors or external AI providers. The AI execution stack is always "Chinou API".
+- Always "Name and Form" (singular Name), never "Names and Forms".
+- Top-level labels are "Phase 1", "Phase 2"; never "v1"; avoid "Phase 1a/1b" unless detail is needed.
+- Internal system names, spelled exactly: EVE (reference data, workflow), ServiceNow (existing prod instance), NEWS, PCM (Phoenix Cash Manager), Takara (not Talara). Other systems only as they appear in reference/.
+- Cite the AI Governance Standard by article (Article 9: Responsible and Trustworthy AI Principles; Article 2-1: AI Business Owner as 1LOD role). Quote verbatim with article number; never present a paraphrase as a quote.
+- SPOC names from the status sheet may appear in the stakeholder table only, never inside process or requirement text.
 
-Log all three as a dated entry. Do not print file contents. Then stop.
-```
+## Design principles (every chapter)
+- AI only suggests; humans always decide. No auto-finalise without sign-off.
+- All writes execute on the analyst's own credentials.
+- Every action logged with a case / request ID.
+- Prefer dropping an unverifiable claim over hedging it. Use "aligned to" industry definitions, not "based on". Remove any source that cannot be independently verified.
 
-Message B, skeleton:
-```
-Re-read CLAUDE.md and reference/platform-skills.md; both are current. Then:
-- Write the agreed scope register from log/session-1/partD-scope-register-draft.md to brd/annex-scope-register.md (status-sheet activity names, alias column, rows ordered area 1 to 4, 3.4 as two rows, regions as separate rows, "as-is checker drawn" column, frequency, unblocking question).
-- Write the capability catalogue from the regrouped log/session-1/partC-utility-validation.md to brd/01-capability-catalogue.md, structured by the nine skills per reference/platform-skills.md, with the heading "Status: draft, to be validated per chapter".
-- Create brd/00-front-section.md, brd/ch-01-confirmation-contacts-gtype.md, brd/ch-02-org-creation-maintenance.md and brd/ch-03-account-creation-maintenance.md with only the ten template headings from CLAUDE.md and nothing else.
-- Create brd/ch-04-commission-fees.md with a title only.
-Do not print file contents; show me the tree.
-```
-Then /model sonnet, closing line, /exit, /cost. Replace CLAUDE.md on disk after this session.
-
-=====================================================================
-## Chapter sessions (one per chapter, NEW session each, Opus throughout)
-=====================================================================
-Order: ch-01, then ch-02 and ch-03 (parallel windows allowed), then ch-04. Replace <N>, <file>, <area file> each time.
-
-Opening line, then any Change intake messages, then Step 1:
-```
-Read reference/platform-skills.md, brd/01-capability-catalogue.md, brd/annex-scope-register.md, reference/edm-activities.md, reference/<area file> and log/session-1/partE-missing-facts.md (this area's section only). We are working on brd/<file> only. Do not touch any other chapter.
-
-Step 1. Draft sections 1 to 4. Section 1: area overview, status table, and a [BUSINESS INPUT] table for frequency and volumes where the flows do not state them. Section 2: as-is, one sub-section per flow group, mapping table at the head (activity, flow group, slides); regional variants as sub-sub-sections; where this area duplicates an earlier chapter's flow, cross-reference instead of rewriting. Section 3: pain points. Section 4: scope decision per activity with reason. Missing facts: [OPEN: what | ask: owner]. Status sheet vs flow disagreements: show both, tag [CONFLICT]. Stop and tell me it is ready; I will review in the editor.
-```
-Review. Then:
-```
-Step 2. Draft section 5, to-be, one sub-section per flow group that has an as-is in section 2. Write each in the wizard configuration shape from CLAUDE.md (input, extraction, checks, decision points, outputs). Tag every step with one of the nine platform skills and mark every point where a human decides. Where the as-is is pending business sign-off, open the sub-section with "To-be drafted on an as-is pending business sign-off". Every rule whose content is missing is a named configurable check with "content: to be supplied by <owner>". Where a missing fact changes the design (not just the content), write both options and mark the decision pending. Never propose changing how requests arrive. For each flow group, state whether it uses a skill as-is, extends it, or needs something not in the catalogue. Stop and tell me it is ready.
-```
-Review. Then:
-```
-Step 3. Draft sections 6 to 10. Requirements FR-<N>-01 onwards, each testable, each traceable to a to-be step and a skill. Section 7: controls and governance; map every control to the AI Governance Standard, the NTI process and the ORMF as found in reference/, quoting verbatim with article or section number, never paraphrasing as a quote; state the human decision points and logging. Section 9: prerequisites, including webform API availability for IP1 groups and the IP4 intake mechanism for IP4 groups. Section 10: every [OPEN], [CONFLICT] and [BUSINESS INPUT] tag from the chapter, with owner. Stop and tell me it is ready.
-```
-Review. Then:
-```
-Update brd/01-capability-catalogue.md with anything this chapter extended or added, marked with the chapter number. Append only.
-```
-Closing line (Sonnet), /exit, /cost.
-
-Chapter 4 (short session):
-```
-Read brd/annex-scope-register.md. Write brd/ch-04-commission-fees.md: title, one paragraph stating that all nine activities are Phase 2 because they depend on third-party application integration, and a table of 4.1 to 4.9 with status-sheet names and the Phase 2 reason. Nothing else. Stop and tell me it is ready.
-```
-
-=====================================================================
-## Front section (NEW session after ch-01, Opus)
-=====================================================================
-Opening line, then:
-```
-Read brd/ch-01, brd/annex-scope-register.md, brd/01-capability-catalogue.md, the SSG BRD in reference/, and the governance v8 deck in reference/.
-Part 1. From the governance deck and the AI Governance Standard in reference/, list what a BRD under this framework must contain (registration, risk tiering, evaluation and monitoring, human oversight, data handling, model inventory, anything else it names), and propose where each item lands in this document: front section, chapter section 7, or Phase 3 check.
-Part 2. Using the SSG BRD's process-agnostic sections as the base, propose an outline for brd/00-front-section.md: background, objectives, scope summary with the Phase 1 / Phase 2 / out-of-scope counts, stakeholders (from the SSG stakeholder table plus the EDM SPOCs), input patterns IP1 to IP4, the nine skills as the solution shape with one paragraph on one activity to one wizard configuration, governance and NTI per Part 1, prerequisites (webform API, IP4 intake mechanism, FO system read access, mailbox inventory), Phase 2 candidates summary, and the governance checklist from Part 1 as a table.
-Do not write the file until I confirm the outline.
-```
-Confirm. Then:
-```
-Write brd/00-front-section.md per the agreed outline. Reuse SSG wording where process-agnostic; reword where it refers to OTC alleges. Stop and tell me it is ready.
-```
-Closing line (Sonnet), /exit, /cost.
-
-=====================================================================
-## Phase 3 (NEW session, Opus for Step 1, Sonnet after)
-=====================================================================
-Opening line, then (Opus):
-```
-Read brd/01-capability-catalogue.md and brd/ch-01 to ch-03. Step 1. Rewrite the catalogue clean by the nine skills: one definition per skill, sub-modes, inputs, outputs, human decision points, controls, and the list of activities (by number) that use it, drawn from the chapters. Remove the "draft" heading. Save it and tell me which skills changed.
-```
-Approve. /model sonnet. Then:
-```
-Step 2. Consistency check across brd/*.md, report only, change nothing: em-dashes; external vendor names; "Names and Forms"; "v1" or "Phase 1a/1b"; U-numbers in chapter text; any mention of re-engineering intake or asking requesters to use a form; SPOC names outside the stakeholder table; system name spellings; FR numbering gaps; skill tags not in the nine; cross-references to sections that do not exist; remaining [OPEN], [CONFLICT], [BUSINESS INPUT] and [UNCLEAR] tags; and every item on the governance checklist in the front section with the section that satisfies it or "not covered". Table with file, line, issue.
-```
-Fix what you approve. Then:
-```
-Step 3. Assemble in this order: 00-front-section, 01-capability-catalogue, ch-01 to ch-04, annex-scope-register, into brd/CSG_EDM_BRD.md with a table of contents and the label "Draft v0.1 for business review; open points in section 10 of each chapter". Generate CSG_EDM_BRD.docx from it (pandoc if installed; otherwise python-docx). Do not edit the .docx. Show me the heading tree.
-```
-Closing line, /exit.
+## How to work with me
+- Concise, direct, no preamble, no praise.
+- If a fact is not in reference/, write [OPEN: what is missing] inline. Do not invent it.
+- When I flag an inaccuracy, correct exactly that, nothing else.
+- Separate layout changes from content changes.
+- After writing or editing a file, do not print its content in chat. Tell me the file path and which sections changed, in five lines or fewer. I review in the editor.
