@@ -1,7 +1,3 @@
-VINGLLAN
-
-12345
-
 # Session 1, Part D: scope register, draft
 Source: reference/edm-activities.md (14 Sep status snapshot) and reference/flows-area-1.md to flows-area-4.md. Draft for review, not yet a BRD section.
 ** 58 rows .** One row per underlying activity, plus one row per system where an activity is split by system (3.4, six systems) and one row per region where an activity is split by region (3.8, three regions). Row order follows the status sheet: area 2, then area
