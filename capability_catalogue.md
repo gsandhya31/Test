@@ -1,7 +1,8 @@
-Corrections to brd/annex-scope-register.md and brd/01-capability-catalogue.md.
-1. Add under the annex heading and in the catalogue's "From 27 as-is units" paragraph: "33 Phase 1 activities = 27 as-is flow units + 4 covered elsewhere (1.9, 2.3, 2.14, 3.7) + 1 with no flow (3.12), after merging shared flows (1.1/1.2, 1.4 to 1.7) and splitting regions (2.7 x2, 3.8 x3)."
-2. Row 17 (2.7 EMEA): reason R8 pending until Vishnu confirms; move it to the pending group in the summary; keep the [CONFLICT] note.
-3. Frequency column: "n/a" instead of [BI] for every row that is Phase 2, out of scope or covered elsewhere. [BI] only on Phase 1 rows with a to-be.
-4. Unblocking question: blank for rows 10, 15, 19, 22, 32, 34, 38, 43, 47 to 55.
-5. Close by decision and blank the question: row 9 (immaterial, 1.8 out of scope); row 20 ("activity 1" = 2.1, org duplicate check); row 29 (2.3 and 3.3 are different activities, org vs account); row 42 (Phase 1 reads FO systems, Phase 2 writes to them: decided, record in the journal).
-Log items 2 and 5 as a dated entry. Do not print file contents.
+**Open points.**
+- **[OPEN: all Phase 1 activities, slides 4 to 52]** the mailbox inventory. The only address anywhere in reference/ is `RDM-ORGS2@uk.nomura.com`, on slide 1, stated as receiving all mails. Whether area 3 and area 4 have their own mailboxes is not stated. One mailbox means one classifier over many classes; several mailboxes means several smaller ones.
+- **[OPEN: 1.1 and 1.2, slides 4 and 5]** whether the webform's structured fields are reachable by API. Prerequisite, chapter 1 section 9.
+- **[OPEN: 3.1 slide 33, 3.8 slides 40, 41 and 42, 3.10 slide 44, 3.15 slides 49 and 50]** how the automation learns that a new EVE workflow item or EVERequest exists: polling, subscription, webhook or database read. Technical question, not a business one.
+- **[OPEN: 3.10 slide 44, 3.15 slides 49 and 50]** the correlation key between an inbound mail and an open EVE item.
+- **[OPEN: 2.13, slide 29]** no input channel is stated for 2.13 anywhere. The Ingestion mode stays a named parameter and must not be assumed.
+- **[BUSINESS INPUT: 3.1 slide 33, 3.8 slides 40, 41 and 42, 3.10 slide 44, 3.15 slides 49 and 50]** verify that each of these four requests genuinely originates in EVE and not as an email. **[BUSINESS INPUT: 3.8, slides 40, 41 and 42]** which channel the KYC team uses; IP3 is assumed.
+
