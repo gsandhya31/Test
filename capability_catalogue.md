@@ -1,3 +1,4 @@
-Read reference/platform-skills.md and reference/flows-area-1.md in full; from brd/annex-scope-register.md read only the Area 1 table; from brd/01-capability-catalogue.md read only the nine skill headings and their one-line definitions; skip log/session-1/partE-missing-facts.md, the register carries the questions. We are working on brd/ch-01-confirmation-contacts-gtype.md only. Do not touch any other chapter.
 
-Step 1. Draft sections 1 to 4. Section 1: area overview, status table, and a [BUSINESS INPUT] table for frequency and volumes where the flows do not state them. Section 2: as-is, one sub-section per flow group, mapping table at the head (activity, flow group, slides); groups are G1 {1.1, 1.2}, G2 {1.3}, G3 {1.4 to 1.7}. Section 3: pain points. Section 4: scope decision per activity with reason. Missing facts: [OPEN: activity, slide: what | ask: owner]. Status sheet vs flow disagreements: show both, tag [CONFLICT]. Stop and tell me it is ready; I will review in the editor.
+  One thing to fix on your side: CLAUDE.md still carries the superseded wording in five places, lines 70, 83, 121, 122 and 123. Line 122's Article 2-1 "to
+  be named" is already fixed; what remains is the analyst as an actor, the analyst queue under Route and Distribute, the gate-off narrowing on the ORM
+  prerequisite, and the exclusion rule.
