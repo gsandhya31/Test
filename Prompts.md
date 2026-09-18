@@ -98,7 +98,7 @@ Opening line, then:
 ```
 Read brd/ch-01, brd/annex-scope-register.md, brd/01-capability-catalogue.md, the SSG BRD in reference/, and the governance v8 deck in reference/.
 Part 1. From the governance deck and the AI Governance Standard in reference/, list what a BRD under this framework must contain (registration, risk tiering, evaluation and monitoring, human oversight, data handling, model inventory, anything else it names), and propose where each item lands in this document: front section, chapter section 7, or Phase 3 check.
-Part 2. Using the SSG BRD's process-agnostic sections as the base, propose an outline for brd/00-front-section.md: background, objectives, scope summary with the Phase 1 / Phase 2 / out-of-scope counts, stakeholders (from the SSG stakeholder table plus the EDM SPOCs), input patterns IP1 to IP4, the nine skills as the solution shape with one paragraph on one activity to one wizard configuration, the control model (code as maker, human as checker) in one paragraph, governance and NTI per Part 1 including the NTI plan table (skill, existing NTI or new NTI), prerequisites (ORM and AI Governance acceptance of the control model, per-system write mechanism and pending state, webform API, IP4 intake mechanism, mailbox inventory), Phase 2 candidates summary, and the governance checklist from Part 1 as a table.
+Part 2. Using the SSG BRD's process-agnostic sections as the base, propose an outline for brd/00-front-section.md: background, objectives, scope summary with the Phase 1 / Phase 2 / out-of-scope counts, stakeholders (from the SSG stakeholder table plus the EDM SPOCs), input patterns IP1 to IP4, the nine skills as the solution shape with one paragraph on one activity to one wizard configuration, the control model (code as maker, human as checker) in one paragraph, governance and NTI per Part 1 including one paragraph on the single project NTI covering all nine skills, with the SSG NTIs as precedents, prerequisites (ORM and AI Governance acceptance of the control model, per-system write mechanism and pending state, webform API, IP4 intake mechanism, mailbox inventory), Phase 2 candidates summary, and the governance checklist from Part 1 as a table.
 Do not write the file until I confirm the outline.
 ```
 Confirm. Then:
@@ -112,7 +112,7 @@ Closing line (Sonnet), /exit, /cost.
 =====================================================================
 Opening line, then (Opus):
 ```
-Read brd/01-capability-catalogue.md and brd/ch-01 to ch-03. Step 1. Rewrite the catalogue clean by the nine skills: one definition per skill, sub-modes, inputs, outputs, the checker decision point and what it is shown, controls, and the list of activities (by number) that use it, drawn from the chapters. Remove the "draft" heading. Save it and tell me which skills changed.
+Read brd/01-capability-catalogue.md and brd/ch-01 to ch-03. Step 1. Write brd/02-solution-capabilities.md as a BRD section from brd/01-capability-catalogue.md and the chapters: for each of the nine skills, one definition, its sub-modes, inputs and outputs, the checker decision points where they apply, and the activities (by number and name) that use it; a closing paragraph stating that all nine are covered by the single project NTI, with the SSG NTIs as precedents. No evidence tables, no open points, no slide or journal references. Move the catalogue's evidence and open points to log/session-1/catalogue-evidence.md. Then write brd/annex-a-scope-register.md from brd/annex-scope-register.md with business columns only: activity, sheet name, scope, reason, input pattern, frequency, to-be (yes/no). Tell me both paths.
 ```
 Approve. /model sonnet. Then:
 ```
@@ -120,6 +120,6 @@ Step 2. Consistency check across brd/*.md, report only, change nothing: em-dashe
 ```
 Fix what you approve. Then:
 ```
-Step 3. Assemble in this order: 00-front-section, 01-capability-catalogue, ch-01 to ch-04, annex-scope-register, into brd/CSG_EDM_BRD_internal.md (all [CAVEAT] tags kept) and brd/CSG_EDM_BRD.md (every [CAVEAT: ...] tag and its contents removed, sentences repaired), each with a table of contents and the label "Draft v0.1 for business review; open points in section 6 of each chapter". Generate CSG_EDM_BRD.docx from the business version (pandoc if installed; otherwise python-docx). Do not edit the .docx. Show me the heading tree and the count of caveats removed.
+Step 3. Assemble in this order: 00-front-section, 02-solution-capabilities, ch-01 to ch-04, annex-a-scope-register, into brd/CSG_EDM_BRD_internal.md (all [CAVEAT] tags kept) and brd/CSG_EDM_BRD.md (every [CAVEAT: ...] tag and its contents removed, sentences repaired), each with a table of contents and the label "Draft v0.1 for business review; open points in section 6 of each chapter". Generate CSG_EDM_BRD.docx from the business version (pandoc if installed; otherwise python-docx). Do not edit the .docx. Show me the heading tree and the count of caveats removed.
 ```
 Closing line, /exit.
